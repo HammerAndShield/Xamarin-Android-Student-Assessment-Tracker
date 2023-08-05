@@ -11,14 +11,13 @@ using System.Diagnostics;
 
 namespace Atown10_CMobile.ViewModels
 {
-    public class AssessmentEditViewModel : BaseViewModel
+    public class EditAssessmentViewModel : BaseViewModel
     {
         public Assessment Assessment { get; set; }
         public Command LoadAssessmentCommand { get; }
         public Command SaveAssessmentCommand { get; }
-        public Database Database { get; set; }
 
-        public AssessmentEditViewModel()
+        public EditAssessmentViewModel()
         {
             Title = "Edit Assessment";
             LoadAssessmentCommand = new Command(async () => await ExecuteLoadAssessmentCommand());

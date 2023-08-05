@@ -18,7 +18,6 @@ namespace Atown10_CMobile.ViewModels
         public Command LoadTermsCommand { get; }
         public Command AddTermCommand { get; }
         public Command<Term> TermTapped { get; }
-        public Database Database { get; set; }
 
         public TermViewModel()
         {
@@ -30,8 +29,6 @@ namespace Atown10_CMobile.ViewModels
 
             AddTermCommand = new Command(OnAddTerm);
 
-            // Initialize the Database
-            Database = new Database();
         }
 
         async Task ExecuteLoadTermsCommand()
@@ -78,12 +75,12 @@ namespace Atown10_CMobile.ViewModels
             if (term == null)
                 return;
 
-            await Shell.Current.GoToAsync($"{nameof(TermDetailPage)}?{nameof(TermDetailViewModel.TermId)}={term.Id}");
+            //await Shell.Current.GoToAsync($"{nameof(TermDetailPage)}?{nameof(TermDetailViewModel.TermId)}={term.Id}");
         }
 
         private async void OnAddTerm(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewTermPage));
+            //await Shell.Current.GoToAsync(nameof(NewTermPage));
         }
     }
 }

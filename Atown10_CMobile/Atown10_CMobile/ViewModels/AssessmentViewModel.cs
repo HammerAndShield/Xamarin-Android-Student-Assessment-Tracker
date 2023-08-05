@@ -16,7 +16,6 @@ namespace Atown10_CMobile.ViewModels
         public Assessment Assessment { get; set; }
         public Command LoadAssessmentCommand { get; }
         public Command EditAssessmentCommand { get; }
-        public Database Database { get; set; }
 
         public AssessmentViewModel()
         {
@@ -50,7 +49,7 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnEditAssessment(object obj)
         {
-            await Shell.Current.GoToAsync($"{nameof(EditAssessmentPage)}?{nameof(EditAssessmentViewModel.AssessmentId)}={Assessment.Id}");
+            //await Shell.Current.GoToAsync($"{nameof(EditAssessmentPage)}?{nameof(EditAssessmentViewModel.AssessmentId)}={Assessment.Id}");
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Atown10_CMobile.ViewModels
         public Command LoadTermCommand { get; }
         public Command AddCourseCommand { get; }
         public Command<Course> CourseTapped { get; }
-        public Database Database { get; set; }
 
         public TermDetailViewModel()
         {
@@ -30,8 +29,7 @@ namespace Atown10_CMobile.ViewModels
 
             AddCourseCommand = new Command(OnAddCourse);
 
-            // Initialize the Database
-            Database = new Database();
+
         }
 
         async Task ExecuteLoadTermCommand()

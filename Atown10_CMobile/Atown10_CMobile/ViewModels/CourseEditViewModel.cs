@@ -16,7 +16,6 @@ namespace Atown10_CMobile.ViewModels
         public Course Course { get; set; }
         public Command LoadCourseCommand { get; }
         public Command SaveCourseCommand { get; }
-        public Database Database { get; set; }
 
         public CourseEditViewModel()
         {

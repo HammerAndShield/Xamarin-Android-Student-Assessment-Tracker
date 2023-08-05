@@ -17,7 +17,6 @@ namespace Atown10_CMobile.ViewModels
         public Course Course { get; set; }
         public Command LoadCourseCommand { get; }
         public Command EditCourseCommand { get; }
-        public Database Database { get; set; }
 
         public CourseDetailViewModel()
         {
@@ -51,7 +50,7 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnEditCourse(object obj)
         {
-            await Shell.Current.GoToAsync($"{nameof(EditCoursePage)}?{nameof(EditCourseViewModel.CourseId)}={Course.Id}");
+            //await Shell.Current.GoToAsync($"{nameof(EditCoursePage)}?{nameof(EditCourseViewModel.CourseId)}={Course.Id}");
         }
     }
 }
