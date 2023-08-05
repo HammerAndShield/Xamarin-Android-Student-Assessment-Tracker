@@ -5,7 +5,7 @@ using SQLite;
 
 namespace Atown10_CMobile.Models
 {
-    class Entity
+    public class Entity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

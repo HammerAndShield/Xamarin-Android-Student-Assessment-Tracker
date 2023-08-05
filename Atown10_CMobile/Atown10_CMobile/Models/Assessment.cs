@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Atown10_CMobile.Models
 {
-    class Assessment
+    public class Assessment : Entity
     {
         public string Name { get; set; }
         public DateTime DueDate { get; set; }
