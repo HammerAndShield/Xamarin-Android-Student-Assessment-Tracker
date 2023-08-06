@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Atown10_CMobile.ViewModels"
+             x:Class="Atown10_CMobile.Views.CourseDetailPage"
+             Title="{Binding Course.Name}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+                <Label Text="Course Details" FontSize="20" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" />
+
+                <Label Text="{Binding Course.Name, StringFormat='Course Name: {0}'}" FontSize="16" />
+                <Label Text="{Binding Course.StartDate, StringFormat='Start Date: {0:MM/dd/yyyy}'}" FontSize="14" />
+                <Label Text="{Binding Course.EndDate, StringFormat='End Date: {0:MM/dd/yyyy}'}" FontSize="14" />
+                <Label Text="{Binding Course.Status, StringFormat='Status: {0}'}" FontSize="14" />
+                <Label Text="{Binding Course.InstructorName, StringFormat='Instructor Name: {0}'}" FontSize="14" />
+                <Label Text="{Binding Course.InstructorPhone, StringFormat='Instructor Phone: {0}'}" FontSize="14" />
+                <Label Text="{Binding Course.InstructorEmail, StringFormat='Instructor Email: {0}'}" FontSize="14" />
+
+                <!-- Placeholder for Assessments, we'll add this later -->
+                <StackLayout>
+                    <Label Text="Assessments" FontSize="18" FontAttributes="Bold" Margin="0,10,0,0" />
+                    <!-- Assessments will be listed here -->
+                </StackLayout>
+
+                <!-- Notes Section -->
+                <StackLayout Margin="0,10,0,0">
+                    <Label Text="Notes" FontSize="18" FontAttributes="Bold" />
+
+                    <!-- Display notes as plain text when not in edit mode -->
+                    <Label Text="{Binding Course.Notes}" 
+                           IsVisible="{Binding IsNotesVisible}" 
+                           FontSize="14" 
+                           TextColor="Black" />
+
+                    <!-- Display Editor when in edit mode -->
+                    <StackLayout IsVisible="{Binding IsEditorVisible}" HeightRequest="{Binding EditorContainerHeight}">
+                        <Frame BorderColor="Black" Padding="0">
+                            <Editor Text="{Binding Course.Notes}" 
+                                    FontSize="14" 
+                                    IsEnabled="{Binding IsEditingNotes}" 
+                                    TextColor="Black" 
+                                    BackgroundColor="White" 
+                                    Placeholder="Enter notes here..." 
+                                    PlaceholderColor="Gray" />
+                        </Frame>
+                    </StackLayout>
+
+                    <Button Text="{Binding EditSaveButtonText}" Command="{Binding ToggleEditNotesCommand}" />
+                    <Button Text="Share Notes" Command="{Binding ShareNotesCommand}" />
+                </StackLayout>
+
+
+
+
+
+                <!-- Placeholder for Edit Button, functionality will be added later -->
+                <Button Text="Edit Course" Command="{Binding EditCourseCommand}" Margin="0,20,0,0" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

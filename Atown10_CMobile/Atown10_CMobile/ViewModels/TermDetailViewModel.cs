@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Atown10_CMobile.Models;
 using Atown10_CMobile.Services;
+using Atown10_CMobile.Views;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -63,7 +64,7 @@ namespace Atown10_CMobile.ViewModels
                 return;
 
             // Navigate to Course Detail Page
-            // await Shell.Current.GoToAsync($"{nameof(CourseDetailPage)}?{nameof(CourseDetailViewModel.CourseId)}={course.Id}");
+            await Shell.Current.Navigation.PushAsync(new CourseDetailPage(course.Id));
         }
 
         private async void OnAddCourse(object obj)

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Atown10_CMobile.ViewModels;
+using Atown10_CMobile.Models;
 
 namespace Atown10_CMobile.Views
 {
@@ -37,7 +38,17 @@ namespace Atown10_CMobile.Views
 
         void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            var selectedCourse = e.CurrentSelection.FirstOrDefault() as Course;
+            if (selectedCourse != null)
+            {
+                _viewModel.CourseTapped.Execute(selectedCourse);
+
+                if (sender is ListView listView)
+                {
+                    listView.SelectedItem = null;
+
+                }
+            }
         }
     }
 }

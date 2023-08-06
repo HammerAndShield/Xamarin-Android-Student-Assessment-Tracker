@@ -4,26 +4,28 @@
              x:Class="Atown10_CMobile.Views.TermDetailPage"
              Title="{Binding Term.Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Courses" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
-            <CollectionView ItemsSource="{Binding Courses}" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BorderColor="Black" CornerRadius="5" HasShadow="True">
-                            <StackLayout Padding="10">
-                                <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" />
-                                <Label Text="{Binding StartDate, StringFormat='Start Date: {0:MM/dd/yyyy}'}" FontSize="14" />
-                                <Label Text="{Binding EndDate, StringFormat='End Date: {0:MM/dd/yyyy}'}" FontSize="14" />
-                                <Label Text="{Binding Status}" FontSize="14" />
-                                <Label Text="{Binding InstructorName}" FontSize="14"/>
-                                <Label Text="{Binding InstructorPhone}" FontSize="14"/>
-                                <Label Text="{Binding InstructorEmail}" FontSize="14"/>
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Label Text="Courses" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+                <CollectionView ItemsSource="{Binding Courses}" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="Black" CornerRadius="5" HasShadow="True">
+                                <StackLayout Padding="10">
+                                    <Label Text="{Binding Name}" FontSize="16" FontAttributes="Bold" />
+                                    <Label Text="{Binding StartDate, StringFormat='Start Date: {0:MM/dd/yyyy}'}" FontSize="14" />
+                                    <Label Text="{Binding EndDate, StringFormat='End Date: {0:MM/dd/yyyy}'}" FontSize="14" />
+                                    <Label Text="{Binding Status, StringFormat='Status: {0}'}" FontSize="14" />
+                                    <Label Text="{Binding InstructorName, StringFormat='Instructor Name: {0}'}" FontSize="14"/>
+                                    <Label Text="{Binding InstructorPhone, StringFormat='Instructor Phone: {0}'}" FontSize="14"/>
+                                    <Label Text="{Binding InstructorEmail, StringFormat='Instructor Email: {0}'}" FontSize="14"/>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
 
