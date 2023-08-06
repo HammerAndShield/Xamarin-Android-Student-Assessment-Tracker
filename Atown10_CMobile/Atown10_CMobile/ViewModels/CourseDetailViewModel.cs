@@ -29,6 +29,16 @@ namespace Atown10_CMobile.ViewModels
         public Command LoadCourseCommand { get; }
         public Command EditCourseCommand { get; }
         public Command ShareNotesCommand { get; }
+        public Command EditAssessmentsCommand { get; }
+        private ObservableCollection<Assessment> _assessments;
+        public ObservableCollection<Assessment> Assessments
+        {
+            get => _assessments;
+            set
+            {
+                SetProperty(ref _assessments, value);
+            }
+        }
         public bool IsEditingNotes { get; set; } = false;
         public string EditSaveButtonText { get; set; } = "Edit Notes";
         public Command ToggleEditNotesCommand { get; }
@@ -54,6 +64,7 @@ namespace Atown10_CMobile.ViewModels
             EditCourseCommand = new Command(OnEditCourse);
             ToggleEditNotesCommand = new Command(ToggleEditNotes);
             ShareNotesCommand = new Command(OnShareNotes);
+            EditAssessmentsCommand = new Command(OnEditAssessments);
         }
 
         async Task ExecuteLoadCourseCommand()
@@ -64,6 +75,13 @@ namespace Atown10_CMobile.ViewModels
             {
                 Course = await App.Database.GetCourseAsync(Id);
                 OnPropertyChanged(nameof(Course));
+                var assessmentsList = await App.Database.GetAssessmentsForCourseAsync(Course.Id);
+                Debug.WriteLine($"Number of assessments: {assessmentsList.Count}");
+                foreach (var assessment in assessmentsList)
+                {
+                    Debug.WriteLine($"Assessment Name: {assessment.Name}, Type: {assessment.Type}");
+                }
+                Assessments = new ObservableCollection<Assessment>(assessmentsList);
             }
             catch (Exception ex)
             {
@@ -117,6 +135,11 @@ namespace Atown10_CMobile.ViewModels
         {
             IsBusy = true;
             LoadCourseCommand.Execute(null);
+        }
+
+        private async void OnEditAssessments()
+        {
+            await Shell.Current.Navigation.PushAsync(new EditAssessmentPage());
         }
 
         private async void OnEditCourse(object obj)

@@ -52,6 +52,27 @@ namespace Atown10_CMobile.Services
                     _database.InsertAsync(course).Wait();
 
                     var insertedCourse = _database.Table<Course>().FirstOrDefaultAsync(c => c.Name == "Test Course").Result;
+
+                    if (insertedCourse != null)
+                    {
+                        var objectiveAssessment = new Assessment
+                        {
+                            Name = "Test Objective Assessment",
+                            DueDate = new DateTime(2023, 12, 12),
+                            Type = "Objective",
+                            CourseId = insertedCourse.Id
+                        };
+                        _database.InsertAsync(objectiveAssessment).Wait();
+
+                        var performanceAssessment = new Assessment
+                        {
+                            Name = "Test Performance Assessment",
+                            DueDate = new DateTime(2023, 12, 12), 
+                            Type = "Performance",
+                            CourseId = insertedCourse.Id
+                        };
+                        _database.InsertAsync(performanceAssessment).Wait();
+                    }
                 }
             }
         }

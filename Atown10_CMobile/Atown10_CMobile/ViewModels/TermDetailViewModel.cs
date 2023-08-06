@@ -15,7 +15,12 @@ namespace Atown10_CMobile.ViewModels
     public class TermDetailViewModel : BaseViewModel
     {
         public int TermId { get; set; }
-        public Term Term { get; set; }
+        private Term _term;
+        public Term Term 
+        {
+            get => _term; 
+            set => SetProperty(ref _term, value); 
+        }
         public ObservableCollection<Course> Courses { get; }
         public Command LoadTermCommand { get; }
         public Command AddCourseCommand { get; }
