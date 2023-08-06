@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SQLite;
 
 namespace Atown10_CMobile.Models
 {
@@ -8,7 +9,7 @@ namespace Atown10_CMobile.Models
     {
         public string Name { get; set; }
         public DateTime DueDate { get; set; }
-        public string Type { get; set; }
+        public string Type { get; set; } 
         public int CourseId { get; set; }
     }
 }

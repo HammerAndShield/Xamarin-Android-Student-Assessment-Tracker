@@ -8,12 +8,23 @@ namespace Atown10_CMobile
 {
     public partial class App : Application
     {
+        static Database database;
+
+        public static Database Database
+        {
+            get
+            {
+                if (database == null)
+                {
+                    database = new Database();
+                }
+                return database;
+            }
+        }
 
         public App()
         {
             InitializeComponent();
-
-            DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 

@@ -31,7 +31,7 @@ namespace Atown10_CMobile.ViewModels
 
             try
             {
-                Course = await Database.GetCourseAsync(Course.Id);
+                Course = await App.Database.GetCourseAsync(Course.Id);
             }
             catch (Exception ex)
             {

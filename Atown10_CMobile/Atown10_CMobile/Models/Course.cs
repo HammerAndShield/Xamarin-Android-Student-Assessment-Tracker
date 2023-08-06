@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SQLite;
+using SQLitePCL;
 
 namespace Atown10_CMobile.Models
 {

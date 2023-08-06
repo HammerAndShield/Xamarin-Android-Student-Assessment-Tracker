@@ -10,7 +10,6 @@ namespace Atown10_CMobile.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public Database Database => DependencyService.Get<Database>();
 
         bool isBusy = false;
         public bool IsBusy

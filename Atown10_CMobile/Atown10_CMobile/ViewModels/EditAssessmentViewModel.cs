@@ -30,7 +30,7 @@ namespace Atown10_CMobile.ViewModels
 
             try
             {
-                Assessment = await Database.GetAssessmentAsync(Assessment.Id);
+                Assessment = await App.Database.GetAssessmentAsync(Assessment.Id);
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnSaveAssessment(object obj)
         {
-            await Database.SaveAssessmentAsync(Assessment);
+            await App.Database.SaveAssessmentAsync(Assessment);
             await Shell.Current.GoToAsync("..");
         }
     }

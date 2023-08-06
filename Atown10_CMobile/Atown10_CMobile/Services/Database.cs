@@ -5,6 +5,7 @@ using SQLite;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Atown10_CMobile.Models;
+using System.Diagnostics;
 
 namespace Atown10_CMobile.Services
 {
@@ -15,9 +16,44 @@ namespace Atown10_CMobile.Services
         public Database()
         {
             _database = DependencyService.Get<IDatabaseConnection>().DbConnection();
+            _database.ExecuteAsync("PRAGMA foreign_keys = ON;");
             _database.CreateTableAsync<Term>().Wait();
             _database.CreateTableAsync<Course>().Wait();
             _database.CreateTableAsync<Assessment>().Wait();
+
+            //Code to generate demonstration information in the database
+            var terms = _database.Table<Term>().ToListAsync().Result;
+            if (terms.Count == 0)
+            {
+                var term = new Term
+                {
+                    Title = "Test Term",
+                    StartDate = new DateTime(2023, 1, 1),
+                    EndDate = new DateTime(2023, 12, 31)
+                };
+                _database.InsertAsync(term).Wait();
+
+                var insertedTerm = _database.Table<Term>().FirstOrDefaultAsync(t => t.Title == "Test Term").Result;
+
+                if (insertedTerm != null)
+                {
+                    var course = new Course
+                    {
+                        Name = "Test Course",
+                        StartDate = new DateTime(2023, 1, 1),
+                        EndDate = new DateTime(2023, 12, 31),
+                        Status = "In Progress",
+                        InstructorName = "Test Instructor",
+                        InstructorPhone = "123-456-7890",
+                        InstructorEmail = "test@test.com",
+                        Notes = "Test Notes",
+                        TermId = insertedTerm.Id
+                    };
+                    _database.InsertAsync(course).Wait();
+
+                    var insertedCourse = _database.Table<Course>().FirstOrDefaultAsync(c => c.Name == "Test Course").Result;
+                }
+            }
         }
 
         //Term methods
@@ -53,9 +89,10 @@ namespace Atown10_CMobile.Services
             return _database.Table<Term>().ToListAsync();
         }
 
-        public Task<List<Course>> GetCoursesForTermAsync(int termId)
+        public async Task<List<Course>> GetCoursesForTermAsync(int termId)
         {
-            return _database.Table<Course>().Where(c => c.TermId == termId).ToListAsync();
+            List<Course> courses = await _database.Table<Course>().Where(c => c.TermId == termId).ToListAsync();
+            return courses;
         }
 
         //Course methods
@@ -129,6 +166,8 @@ namespace Atown10_CMobile.Services
         {
             return _database.Table<Assessment>().ToListAsync();
         }
+
+
 
     }
 }

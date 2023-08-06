@@ -30,7 +30,7 @@ namespace Atown10_CMobile.ViewModels
 
             try
             {
-                Assessment = await Database.GetAssessmentAsync(Assessment.Id);
+                Assessment = await App.Database.GetAssessmentAsync(Assessment.Id);
             }
             catch (Exception ex)
             {

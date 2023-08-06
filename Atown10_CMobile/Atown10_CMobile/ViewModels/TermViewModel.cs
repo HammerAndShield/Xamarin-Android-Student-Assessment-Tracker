@@ -4,6 +4,7 @@ using System.Text;
 using System.ComponentModel;
 using Atown10_CMobile.Models;
 using Atown10_CMobile.Services;
+using Atown10_CMobile.Views;
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
@@ -38,7 +39,7 @@ namespace Atown10_CMobile.ViewModels
             try
             {
                 Terms.Clear();
-                var terms = await Database.GetTermsAsync();
+                var terms = await App.Database.GetTermsAsync();
                 foreach (var term in terms)
                 {
                     Terms.Add(term);
@@ -58,6 +59,7 @@ namespace Atown10_CMobile.ViewModels
         {
             IsBusy = true;
             SelectedTerm = null;
+            LoadTermsCommand.Execute(null);
         }
 
         public Term SelectedTerm
@@ -70,15 +72,15 @@ namespace Atown10_CMobile.ViewModels
             }
         }
 
-        private async void OnTermSelected(Term term)
+        public async void OnTermSelected(Term term)
         {
             if (term == null)
                 return;
 
-            //await Shell.Current.GoToAsync($"{nameof(TermDetailPage)}?{nameof(TermDetailViewModel.TermId)}={term.Id}");
+            await Shell.Current.Navigation.PushAsync(new TermDetailPage(term.Id));
         }
 
-        private async void OnAddTerm(object obj)
+        public async void OnAddTerm(object obj)
         {
             //await Shell.Current.GoToAsync(nameof(NewTermPage));
         }

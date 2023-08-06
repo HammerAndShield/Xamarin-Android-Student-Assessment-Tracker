@@ -38,8 +38,8 @@ namespace Atown10_CMobile.ViewModels
 
             try
             {
-                Term = await Database.GetTermAsync(TermId);
-                var courses = await Database.GetCoursesForTermAsync(TermId);
+                Term = await App.Database.GetTermAsync(TermId);
+                var courses = await App.Database.GetCoursesForTermAsync(TermId);
 
                 Courses.Clear();
                 foreach (var course in courses)

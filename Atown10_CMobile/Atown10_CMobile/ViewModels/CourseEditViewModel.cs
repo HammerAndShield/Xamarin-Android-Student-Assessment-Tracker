@@ -30,7 +30,7 @@ namespace Atown10_CMobile.ViewModels
 
             try
             {
-                Course = await Database.GetCourseAsync(Course.Id);
+                Course = await App.Database.GetCourseAsync(Course.Id);
             }
             catch (Exception ex)
             {
@@ -49,7 +49,7 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnSaveCourse(object obj)
         {
-            await Database.SaveCourseAsync(Course);
+            await App.Database.SaveCourseAsync(Course);
             await Shell.Current.GoToAsync("..");
         }
     }
