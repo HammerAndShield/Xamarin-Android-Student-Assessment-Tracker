@@ -3,10 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Atown10_CMobile.Views.EditAssessmentPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="10">
+            <Label Text="Objective:" FontSize="18" FontAttributes="Bold" />
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Label Text="Name:" VerticalOptions="Center" />
+                <Frame BorderColor="Black" WidthRequest="200">
+                    <Entry Text="{Binding ObjectiveAssessment.Name}" />
+                </Frame>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Label Text="Due Date:" VerticalOptions="Center" />
+                <Frame BorderColor="Black" WidthRequest="200">
+                    <DatePicker Date="{Binding ObjectiveAssessment.DueDate}" Format="MM/dd/yyyy" />
+                </Frame>
+            </StackLayout>
+
+            <Label Text="Performance:" FontSize="18" FontAttributes="Bold" Margin="0,10,0,0" />
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Label Text="Name:" VerticalOptions="Center" />
+                <Frame BorderColor="Black" WidthRequest="200">
+                    <Entry Text="{Binding PerformanceAssessment.Name}" />
+                </Frame>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Label Text="Due Date:" VerticalOptions="Center" />
+                <Frame BorderColor="Black" WidthRequest="200">
+                    <DatePicker Date="{Binding PerformanceAssessment.DueDate}" Format="MM/dd/yyyy" />
+                </Frame>
+            </StackLayout>
+
+            <Button Text="Save" Command="{Binding SaveAssessmentCommand}" Margin="0,20,0,0" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

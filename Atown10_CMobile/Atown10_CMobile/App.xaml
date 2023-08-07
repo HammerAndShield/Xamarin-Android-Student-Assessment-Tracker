@@ -16,6 +16,15 @@
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="PlaceholderColor" Value="Gray" />
             </Style>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="PlaceholderColor" Value="Gray" />
+            </Style>
+            <Style TargetType="DatePicker">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="Black"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
