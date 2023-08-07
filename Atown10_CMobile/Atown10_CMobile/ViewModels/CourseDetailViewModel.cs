@@ -139,7 +139,6 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnEditAssessments()
         {
-            var viewModel = new EditAssessmentViewModel(Id);
             await Shell.Current.Navigation.PushAsync(new EditAssessmentPage(Id));
         }
 

@@ -68,10 +68,12 @@ namespace Atown10_CMobile.ViewModels
                     PerformanceAssessment.Id = performance.Id;
                     PerformanceAssessment.Name = performance.Name;
                     PerformanceAssessment.DueDate = performance.DueDate;
+                    OnPropertyChanged(nameof(PerformanceAssessment));
                 }
                 else
                 {
                     PerformanceAssessment.DueDate = DateTime.Today;
+                    OnPropertyChanged(nameof(PerformanceAssessment));
                 }
 
                 if (objective != null)
@@ -79,10 +81,12 @@ namespace Atown10_CMobile.ViewModels
                     ObjectiveAssessment.Id = objective.Id;
                     ObjectiveAssessment.Name = objective.Name;
                     ObjectiveAssessment.DueDate = objective.DueDate;
+                    OnPropertyChanged(nameof(ObjectiveAssessment));
                 }
                 else
                 {
                     ObjectiveAssessment.DueDate = DateTime.Today;
+                    OnPropertyChanged(nameof(ObjectiveAssessment));
                 }
             }
             catch (Exception ex)

@@ -1,42 +1,58 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Atown10_CMobile.Views.EditAssessmentPage">
     <ContentPage.Content>
         <StackLayout Padding="10">
             <Label Text="Objective:" FontSize="18" FontAttributes="Bold" />
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Label Text="Name:" VerticalOptions="Center" />
-                <Frame BorderColor="Black" WidthRequest="200">
-                    <Entry Text="{Binding ObjectiveAssessment.Name}" />
-                </Frame>
-            </StackLayout>
+            <!-- Name Grid for Objective -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Label Text="Due Date:" VerticalOptions="Center" />
-                <Frame BorderColor="Black" WidthRequest="200">
-                    <DatePicker Date="{Binding ObjectiveAssessment.DueDate}" Format="MM/dd/yyyy" />
-                </Frame>
-            </StackLayout>
+                <Label Text="Name:" VerticalOptions="Center" Grid.Column="0" />
+                <Entry Text="{Binding ObjectiveAssessment.Name}" Grid.Column="1" />
+            </Grid>
+
+            <!-- Due Date Grid for Objective -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Due Date:" VerticalOptions="Center" Grid.Column="0" />
+                <DatePicker Date="{Binding ObjectiveAssessment.DueDate}" Format="MM/dd/yyyy" Grid.Column="1" />
+            </Grid>
 
             <Label Text="Performance:" FontSize="18" FontAttributes="Bold" Margin="0,10,0,0" />
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Label Text="Name:" VerticalOptions="Center" />
-                <Frame BorderColor="Black" WidthRequest="200">
-                    <Entry Text="{Binding PerformanceAssessment.Name}" />
-                </Frame>
-            </StackLayout>
+            <!-- Name Grid for Performance -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Label Text="Due Date:" VerticalOptions="Center" />
-                <Frame BorderColor="Black" WidthRequest="200">
-                    <DatePicker Date="{Binding PerformanceAssessment.DueDate}" Format="MM/dd/yyyy" />
-                </Frame>
-            </StackLayout>
+                <Label Text="Name:" VerticalOptions="Center" Grid.Column="0" />
+                <Entry Text="{Binding PerformanceAssessment.Name}" Grid.Column="1" />
+            </Grid>
+
+            <!-- Due Date Grid for Performance -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Text="Due Date:" VerticalOptions="Center" Grid.Column="0" />
+                <DatePicker Date="{Binding PerformanceAssessment.DueDate}" Format="MM/dd/yyyy" Grid.Column="1" />
+            </Grid>
 
             <Button Text="Save" Command="{Binding SaveAssessmentCommand}" Margin="0,20,0,0" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+
