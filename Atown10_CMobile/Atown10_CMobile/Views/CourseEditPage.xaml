@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Atown10_CMobile.Views.CourseEditPage"
+             Title="{Binding Title}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+                <Label Text="Course Name" FontSize="16" />
+                <Entry Text="{Binding Course.Name}" Placeholder="Enter Course Name" />
+
+                <Label Text="Start Date" FontSize="16" Margin="0,10,0,0" />
+                <DatePicker Date="{Binding Course.StartDate}" />
+
+                <Label Text="End Date" FontSize="16" Margin="0,10,0,0" />
+                <DatePicker Date="{Binding Course.EndDate}" />
+
+                <Label Text="Status" FontSize="16" Margin="0,10,0,0" />
+                <Entry Text="{Binding Course.Status}" Placeholder="Enter Status" />
+
+                <Label Text="Instructor Name" FontSize="16" Margin="0,10,0,0" />
+                <Entry Text="{Binding Course.InstructorName}" Placeholder="Enter Instructor Name" />
+
+                <Label Text="Instructor Phone" FontSize="16" Margin="0,10,0,0" />
+                <Entry Text="{Binding Course.InstructorPhone}" Placeholder="Enter Instructor Phone" />
+
+                <Label Text="Instructor Email" FontSize="16" Margin="0,10,0,0" />
+                <Entry Text="{Binding Course.InstructorEmail}" Placeholder="Enter Instructor Email" />
+
+                <Button Text="Save Course" Command="{Binding SaveCourseCommand}" Margin="0,20,0,0" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -140,9 +140,9 @@ namespace Atown10_CMobile.Services
             return _database.UpdateAsync(course);
         }
 
-        public Task<int> DeleteCourseAsync(Course course)
+        public async Task<int> DeleteCourseAsync(Course course)
         {
-            return _database.DeleteAsync(course);
+            return await _database.DeleteAsync(course);
         }
 
         public Task<List<Course>> GetCoursesAsync()
@@ -178,9 +178,9 @@ namespace Atown10_CMobile.Services
             return _database.UpdateAsync(assessment);
         }
 
-        public Task<int> DeleteAssessmentAsync(Assessment assessment)
+        public async Task<int> DeleteAssessmentAsync(Assessment assessment)
         {
-            return _database.DeleteAsync(assessment);
+            return await _database.DeleteAsync(assessment);
         }
 
         public Task<List<Assessment>> GetAssessmentsAsync()

@@ -144,7 +144,7 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnEditCourse(object obj)
         {
-            //await Shell.Current.GoToAsync($"{nameof(EditCoursePage)}?{nameof(EditCourseViewModel.CourseId)}={Course.Id}");
+            await Shell.Current.Navigation.PushAsync(new CourseEditPage(Course.Id));
         }
     }
 }

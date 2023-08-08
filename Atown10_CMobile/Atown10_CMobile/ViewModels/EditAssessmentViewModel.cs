@@ -44,6 +44,8 @@ namespace Atown10_CMobile.ViewModels
             set => SetProperty(ref _objectiveAssessment, value);
         }
         public int CourseId { get; set; }
+        public Command DeletePerformanceAssessmentCommand { get; private set; }
+        public Command DeleteObjectiveAssessmentCommand { get; private set; }
 
         public EditAssessmentViewModel(int courseId)
         {
@@ -51,6 +53,8 @@ namespace Atown10_CMobile.ViewModels
             Title = "Edit Assessment";
             LoadAssessmentCommand = new Command(async () => await ExecuteLoadAssessmentCommand());
             SaveAssessmentCommand = new Command(OnSaveAssessment);
+            DeletePerformanceAssessmentCommand = new Command(OnDeletePerformanceAssessment);
+            DeleteObjectiveAssessmentCommand = new Command(OnDeleteObjectiveAssessment);
         }
 
         async Task ExecuteLoadAssessmentCommand()
@@ -107,13 +111,47 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnSaveAssessment(object obj)
         {
-            if (PerformanceAssessment != null)
+            if (PerformanceAssessment != null && !string.IsNullOrEmpty(PerformanceAssessment.Name))
+            {
                 await App.Database.SaveAssessmentAsync(PerformanceAssessment);
+            }
+            else
+            {
+                PerformanceAssessment = null;
+            }
 
-            if (ObjectiveAssessment != null)
+            if (ObjectiveAssessment != null && !string.IsNullOrEmpty(ObjectiveAssessment.Name))
+            {
                 await App.Database.SaveAssessmentAsync(ObjectiveAssessment);
+            }
+            else
+            {
+                ObjectiveAssessment = null;
+            }
 
             await Shell.Current.GoToAsync("..");
         }
+
+        private async void OnDeletePerformanceAssessment()
+        {
+            if (PerformanceAssessment != null && PerformanceAssessment.Id != 0) 
+            {
+                await App.Database.DeleteAssessmentAsync(PerformanceAssessment);
+                PerformanceAssessment = null;
+                await Shell.Current.GoToAsync("..");
+            }
+        }
+
+        private async void OnDeleteObjectiveAssessment()
+        {
+            if (ObjectiveAssessment != null && ObjectiveAssessment.Id != 0) 
+            {
+                await App.Database.DeleteAssessmentAsync(ObjectiveAssessment);
+                ObjectiveAssessment = null;
+                await Shell.Current.GoToAsync("..");
+            }
+        }
+
+
     }
 }

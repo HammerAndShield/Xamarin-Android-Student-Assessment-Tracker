@@ -52,6 +52,8 @@
             </Grid>
 
             <Button Text="Save" Command="{Binding SaveAssessmentCommand}" Margin="0,20,0,0" />
+            <Button Text="Delete Objective Assessment" Command="{Binding DeleteObjectiveAssessmentCommand}" Margin="0,10,0,0" />
+            <Button Text="Delete Performance Assessment" Command="{Binding DeletePerformanceAssessmentCommand}" Margin="0,10,0,0" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

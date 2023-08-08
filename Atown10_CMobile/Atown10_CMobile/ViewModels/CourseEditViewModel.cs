@@ -17,9 +17,10 @@ namespace Atown10_CMobile.ViewModels
         public Command LoadCourseCommand { get; }
         public Command SaveCourseCommand { get; }
 
-        public CourseEditViewModel()
+        public CourseEditViewModel(int courseId)
         {
             Title = "Edit Course";
+            Course = new Course { Id = courseId }; 
             LoadCourseCommand = new Command(async () => await ExecuteLoadCourseCommand());
             SaveCourseCommand = new Command(OnSaveCourse);
         }
@@ -45,6 +46,7 @@ namespace Atown10_CMobile.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
+            LoadCourseCommand.Execute(null);
         }
 
         private async void OnSaveCourse(object obj)
