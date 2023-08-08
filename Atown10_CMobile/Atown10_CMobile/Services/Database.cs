@@ -16,7 +16,6 @@ namespace Atown10_CMobile.Services
         public Database()
         {
             _database = DependencyService.Get<IDatabaseConnection>().DbConnection();
-            _database.ExecuteAsync("PRAGMA foreign_keys = ON;");
             _database.CreateTableAsync<Term>().Wait();
             _database.CreateTableAsync<Course>().Wait();
             _database.CreateTableAsync<Assessment>().Wait();
@@ -153,6 +152,17 @@ namespace Atown10_CMobile.Services
         public Task<List<Assessment>> GetAssessmentsForCourseAsync(int courseId)
         {
             return _database.Table<Assessment>().Where(a => a.CourseId == courseId).ToListAsync();
+        }
+
+        public async Task<int> DeleteAssessmentsForCourseAsync(int courseId)
+        {
+            var assessmentsToDelete = await _database.Table<Assessment>().Where(a => a.CourseId == courseId).ToListAsync();
+            int deleteCount = 0;
+            foreach (var assessment in assessmentsToDelete)
+            {
+                deleteCount += await _database.DeleteAsync(assessment);
+            }
+            return deleteCount;
         }
 
         //Assessment operations

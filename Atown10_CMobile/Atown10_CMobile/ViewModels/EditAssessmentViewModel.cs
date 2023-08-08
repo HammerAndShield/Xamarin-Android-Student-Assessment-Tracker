@@ -136,9 +136,13 @@ namespace Atown10_CMobile.ViewModels
         {
             if (PerformanceAssessment != null && PerformanceAssessment.Id != 0) 
             {
-                await App.Database.DeleteAssessmentAsync(PerformanceAssessment);
-                PerformanceAssessment = null;
-                await Shell.Current.GoToAsync("..");
+                var isUserSure = await App.Current.MainPage.DisplayAlert("Delete Performance Assessment", "Are you sure you want to delete this assessment?", "Yes", "No");
+                if (isUserSure)
+                {
+                    await App.Database.DeleteAssessmentAsync(PerformanceAssessment);
+                    PerformanceAssessment = null;
+                    await Shell.Current.GoToAsync("..");
+                }
             }
         }
 
@@ -146,9 +150,13 @@ namespace Atown10_CMobile.ViewModels
         {
             if (ObjectiveAssessment != null && ObjectiveAssessment.Id != 0) 
             {
-                await App.Database.DeleteAssessmentAsync(ObjectiveAssessment);
-                ObjectiveAssessment = null;
-                await Shell.Current.GoToAsync("..");
+                var isUserSure = await App.Current.MainPage.DisplayAlert("Delete Objective Assessment", "Are you sure you want to delete this assessment?", "Yes", "No");
+                if (isUserSure)
+                {
+                    await App.Database.DeleteAssessmentAsync(ObjectiveAssessment);
+                    ObjectiveAssessment = null;
+                    await Shell.Current.GoToAsync("..");
+                }
             }
         }
 

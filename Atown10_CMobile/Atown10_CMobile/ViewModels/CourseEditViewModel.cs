@@ -16,6 +16,7 @@ namespace Atown10_CMobile.ViewModels
         public Course Course { get; set; }
         public Command LoadCourseCommand { get; }
         public Command SaveCourseCommand { get; }
+        public Command DeleteCourseCommand { get; }
 
         public CourseEditViewModel(int courseId)
         {
@@ -23,6 +24,7 @@ namespace Atown10_CMobile.ViewModels
             Course = new Course { Id = courseId }; 
             LoadCourseCommand = new Command(async () => await ExecuteLoadCourseCommand());
             SaveCourseCommand = new Command(OnSaveCourse);
+            DeleteCourseCommand = new Command(OnDeleteCourse);
         }
 
         async Task ExecuteLoadCourseCommand()
@@ -32,6 +34,7 @@ namespace Atown10_CMobile.ViewModels
             try
             {
                 Course = await App.Database.GetCourseAsync(Course.Id);
+                OnPropertyChanged(nameof(Course));
             }
             catch (Exception ex)
             {
@@ -53,6 +56,18 @@ namespace Atown10_CMobile.ViewModels
         {
             await App.Database.SaveCourseAsync(Course);
             await Shell.Current.GoToAsync("..");
+        }
+
+        private async void OnDeleteCourse()
+        {
+            var isUserSure = await App.Current.MainPage.DisplayAlert("Delete Course", "Are you sure you want to delete this course and associated assessments?", "Yes", "No");
+            if (isUserSure)
+            {
+                await App.Database.DeleteAssessmentsForCourseAsync(Course.Id);
+                await App.Database.DeleteCourseAsync(Course);
+                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync("..");
+            }
         }
     }
 }

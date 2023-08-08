@@ -68,7 +68,6 @@ namespace Atown10_CMobile.ViewModels
             if (course == null)
                 return;
 
-            // Navigate to Course Detail Page
             await Shell.Current.Navigation.PushAsync(new CourseDetailPage(course.Id));
         }
 
