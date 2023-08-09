@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Diagnostics;
+using Plugin.LocalNotifications;
 
 namespace Atown10_CMobile.ViewModels
 {
@@ -15,6 +16,8 @@ namespace Atown10_CMobile.ViewModels
     {
         public Course Course { get; set; }
         public Command AddCourseCommand { get; }
+        public bool SetNotificationStartDate { get; set; }
+        public bool SetNotificationEndDate { get; set; }
 
         public AddCourseViewModel(int termId)
         {
@@ -61,6 +64,38 @@ namespace Atown10_CMobile.ViewModels
                    Course.InstructorPhone != null &&
                    Course.InstructorEmail != null &&
                    Course.EndDate > Course.StartDate;
+        }
+
+        private void SetNotification(string eventType, DateTime eventDate, int id)
+        {
+            var oneWeekBefore = eventDate.AddDays(-7);
+            var oneDayBefore = eventDate.AddDays(-1);
+            string message = "";
+
+            if (eventType == "start")
+            {
+                message = $"Your course {Course.Name} starts";
+            }
+            else if (eventType == "end")
+            {
+                message = $"Your course {Course.Name} ends";
+            }
+
+            if (oneWeekBefore > DateTime.Now)
+            {
+                CrossLocalNotifications.Current.Show("Course Reminder", $"{message} in a week!", id, oneWeekBefore);
+            }
+
+            if (oneDayBefore > DateTime.Now)
+            {
+                CrossLocalNotifications.Current.Show("Course Reminder", $"{message} tomorrow!", id + 100, oneDayBefore);
+            }
+        }
+
+        private void DeleteNotification(string eventType, int id)
+        {
+            CrossLocalNotifications.Current.Cancel(id);
+            CrossLocalNotifications.Current.Cancel(id + 100);
         }
     }
 }

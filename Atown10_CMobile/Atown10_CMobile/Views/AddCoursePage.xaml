@@ -28,6 +28,17 @@
                     <DatePicker Date="{Binding Course.StartDate}" Grid.Column="1" />
                 </Grid>
 
+                <!-- Start Date Notification Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Notify for Start Date:" VerticalOptions="Center" Grid.Column="0" />
+                    <CheckBox IsChecked="{Binding SetNotificationStartDate}" Grid.Column="1" />
+                </Grid>
+
                 <!-- End Date Grid -->
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -37,6 +48,17 @@
 
                     <Label Text="End Date:" VerticalOptions="Center" Grid.Column="0" />
                     <DatePicker Date="{Binding Course.EndDate}" Grid.Column="1" />
+                </Grid>
+
+                <!-- End Date Notification Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Notify for End Date:" VerticalOptions="Center" Grid.Column="0" />
+                    <CheckBox IsChecked="{Binding SetNotificationEndDate}" Grid.Column="1" />
                 </Grid>
 
                 <!-- Status Grid -->
