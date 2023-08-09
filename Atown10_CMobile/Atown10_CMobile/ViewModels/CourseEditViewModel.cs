@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Diagnostics;
+using Plugin.LocalNotifications;
 
 namespace Atown10_CMobile.ViewModels
 {
@@ -54,8 +55,44 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnSaveCourse(object obj)
         {
-            await App.Database.SaveCourseAsync(Course);
-            await Shell.Current.GoToAsync("..");
+            if (IsValidCourse())
+            {
+                await App.Database.SaveCourseAsync(Course);
+
+                if (Course.SetNotificationStartDate)
+                {
+                    SetNotification("start", Course.StartDate, Course.Id);
+                }
+                else
+                {
+                    DeleteNotification("start", Course.Id);
+                }
+
+                if (Course.SetNotificationEndDate)
+                {
+                    SetNotification("end", Course.EndDate, Course.Id + 1000);
+                }
+                else
+                {
+                    DeleteNotification("end", Course.Id + 1000);
+                }
+
+                await Shell.Current.GoToAsync("..");
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Please ensure all fields are filled and the end date is after the start date.", "OK");
+            }
+        }
+
+        private bool IsValidCourse()
+        {
+            return Course.Name != null &&
+                   Course.Status != null &&
+                   Course.InstructorName != null &&
+                   Course.InstructorPhone != null &&
+                   Course.InstructorEmail != null &&
+                   Course.EndDate > Course.StartDate;
         }
 
         private async void OnDeleteCourse()
@@ -68,6 +105,38 @@ namespace Atown10_CMobile.ViewModels
                 await Shell.Current.GoToAsync("..");
                 await Shell.Current.GoToAsync("..");
             }
+        }
+
+        private void SetNotification(string eventType, DateTime eventDate, int id)
+        {
+            var oneWeekBefore = eventDate.AddDays(-7);
+            var oneDayBefore = eventDate.AddDays(-1);
+            string message = "";
+
+            if (eventType == "start")
+            {
+                message = $"Your course {Course.Name} starts";
+            }
+            else if (eventType == "end")
+            {
+                message = $"Your course {Course.Name} ends";
+            }
+
+            if (oneWeekBefore > DateTime.Now)
+            {
+                CrossLocalNotifications.Current.Show("Course Reminder", $"{message} in a week!", id, oneWeekBefore);
+            }
+
+            if (oneDayBefore > DateTime.Now)
+            {
+                CrossLocalNotifications.Current.Show("Course Reminder", $"{message} tomorrow!", id + 100, oneDayBefore);
+            }
+        }
+
+        private void DeleteNotification(string eventType, int id)
+        {
+            CrossLocalNotifications.Current.Cancel(id);
+            CrossLocalNotifications.Current.Cancel(id + 100);
         }
     }
 }

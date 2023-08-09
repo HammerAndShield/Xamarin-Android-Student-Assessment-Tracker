@@ -27,6 +27,18 @@
                     <Label Text="Start Date:" VerticalOptions="Center" Grid.Column="0" />
                     <DatePicker Date="{Binding Course.StartDate}" Grid.Column="1" />
                 </Grid>
+                
+                <!-- Start Date Notification Grid -->
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Notify for Start Date:" VerticalOptions="Center" Grid.Column="0" />
+                    <CheckBox IsChecked="{Binding Course.SetNotificationStartDate}" Grid.Column="1" />
+                </Grid>
 
                 <!-- End Date Grid -->
                 <Grid>
@@ -39,6 +51,17 @@
                     <DatePicker Date="{Binding Course.EndDate}" Grid.Column="1" />
                 </Grid>
 
+                <!-- End Date Notification Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Notify for End Date:" VerticalOptions="Center" Grid.Column="0" />
+                    <CheckBox IsChecked="{Binding Course.SetNotificationEndDate}" Grid.Column="1" />
+                </Grid>
+
                 <!-- Status Grid -->
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -47,7 +70,16 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Text="Status:" VerticalOptions="Center" Grid.Column="0" />
-                    <Entry Text="{Binding Course.Status}" Placeholder="Enter Status" Grid.Column="1" />
+                    <Picker Title="Select Status" SelectedItem="{Binding Course.Status}" Grid.Column="1">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>In Progress</x:String>
+                                <x:String>Completed</x:String>
+                                <x:String>Dropped</x:String>
+                                <x:String>Plan to Take</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
                 </Grid>
 
                 <!-- Instructor Name Grid -->

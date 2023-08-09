@@ -8,6 +8,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Diagnostics;
+using Plugin.LocalNotifications;
+
 
 namespace Atown10_CMobile.ViewModels
 {
@@ -17,6 +19,7 @@ namespace Atown10_CMobile.ViewModels
         public Command LoadAssessmentCommand { get; }
         public Command SaveAssessmentCommand { get; }
         private Assessment _performanceAssessment;
+
         public Assessment PerformanceAssessment
         {
             get
@@ -72,6 +75,7 @@ namespace Atown10_CMobile.ViewModels
                     PerformanceAssessment.Id = performance.Id;
                     PerformanceAssessment.Name = performance.Name;
                     PerformanceAssessment.DueDate = performance.DueDate;
+                    PerformanceAssessment.SetNotification = performance.SetNotification;
                     OnPropertyChanged(nameof(PerformanceAssessment));
                 }
                 else
@@ -85,6 +89,7 @@ namespace Atown10_CMobile.ViewModels
                     ObjectiveAssessment.Id = objective.Id;
                     ObjectiveAssessment.Name = objective.Name;
                     ObjectiveAssessment.DueDate = objective.DueDate;
+                    ObjectiveAssessment.SetNotification = objective.SetNotification;
                     OnPropertyChanged(nameof(ObjectiveAssessment));
                 }
                 else
@@ -129,7 +134,54 @@ namespace Atown10_CMobile.ViewModels
                 ObjectiveAssessment = null;
             }
 
+            if (ObjectiveAssessment != null && !string.IsNullOrEmpty(ObjectiveAssessment.Name))
+            {
+                if (ObjectiveAssessment.SetNotification)
+                {
+                    SetNotification(ObjectiveAssessment.Name, ObjectiveAssessment.DueDate, 1);
+                }
+                else
+                {
+                    DeleteNotification(ObjectiveAssessment.Name, 1);
+                }
+            }
+
+            if (PerformanceAssessment != null && !string.IsNullOrEmpty(PerformanceAssessment.Name))
+            {
+                if (PerformanceAssessment.SetNotification)
+                {
+                    SetNotification(PerformanceAssessment.Name, PerformanceAssessment.DueDate, 2);
+                }
+                else
+                {
+                    DeleteNotification(PerformanceAssessment.Name, 2);
+                }
+            }
+
+
             await Shell.Current.GoToAsync("..");
+        }
+
+        private void SetNotification(string assessmentName, DateTime dueDate, int id)
+        {
+            var oneWeekBefore = dueDate.AddDays(-7);
+            var oneDayBefore = dueDate.AddDays(-1);
+
+            if (oneWeekBefore > DateTime.Now) 
+            {
+                CrossLocalNotifications.Current.Show("Assessment Reminder", $"Your {assessmentName} assessment is due in a week!", id, oneWeekBefore);
+            }
+
+            if (oneDayBefore > DateTime.Now) 
+            {
+                CrossLocalNotifications.Current.Show("Assessment Reminder", $"Your {assessmentName} assessment is due tomorrow!", id + 100, oneDayBefore); 
+            }
+        }
+
+        private void DeleteNotification(string assessmentName, int id)
+        {
+            CrossLocalNotifications.Current.Cancel(id);
+            CrossLocalNotifications.Current.Cancel(id + 100);
         }
 
         private async void OnDeletePerformanceAssessment()

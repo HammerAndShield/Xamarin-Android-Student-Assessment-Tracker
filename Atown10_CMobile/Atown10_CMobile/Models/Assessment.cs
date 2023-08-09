@@ -11,5 +11,6 @@ namespace Atown10_CMobile.Models
         public DateTime DueDate { get; set; }
         public string Type { get; set; } 
         public int CourseId { get; set; }
+        public bool SetNotification { get; set; }
     }
 }

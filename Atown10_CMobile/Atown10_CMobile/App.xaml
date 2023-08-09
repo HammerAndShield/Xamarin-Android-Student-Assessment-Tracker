@@ -21,6 +21,10 @@
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="PlaceholderColor" Value="Gray" />
             </Style>
+            <Style TargetType="Picker">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
             <Style TargetType="DatePicker">
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="BackgroundColor" Value="White" />

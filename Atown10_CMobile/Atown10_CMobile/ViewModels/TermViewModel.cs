@@ -82,7 +82,7 @@ namespace Atown10_CMobile.ViewModels
 
         public async void OnAddTerm(object obj)
         {
-            //await Shell.Current.GoToAsync(nameof(NewTermPage));
+            await Shell.Current.Navigation.PushAsync(new AddTermPage());
         }
     }
 }

@@ -165,6 +165,11 @@ namespace Atown10_CMobile.Services
             return deleteCount;
         }
 
+        public async Task<int> GetCourseCountByTermAsync(int termId)
+        {
+            return await _database.Table<Course>().Where(c => c.TermId == termId).CountAsync();
+        }
+
         //Assessment operations
         public Task<int> SaveAssessmentAsync(Assessment assessment)
         {

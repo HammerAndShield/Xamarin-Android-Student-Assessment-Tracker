@@ -1,12 +1,100 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Atown10_CMobile.Views.AddCoursePage">
+             x:Class="Atown10_CMobile.Views.AddCoursePage"
+             Title="Add Course">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout Padding="10">
+                <!-- Course Name Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Course Name:" VerticalOptions="Center" Grid.Column="0" />
+                    <Entry Text="{Binding Course.Name}" Placeholder="Enter Course Name" Grid.Column="1" />
+                </Grid>
+
+                <!-- Start Date Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Start Date:" VerticalOptions="Center" Grid.Column="0" />
+                    <DatePicker Date="{Binding Course.StartDate}" Grid.Column="1" />
+                </Grid>
+
+                <!-- End Date Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="End Date:" VerticalOptions="Center" Grid.Column="0" />
+                    <DatePicker Date="{Binding Course.EndDate}" Grid.Column="1" />
+                </Grid>
+
+                <!-- Status Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Status:" VerticalOptions="Center" Grid.Column="0" />
+                    <Picker Title="Select Status" SelectedItem="{Binding Course.Status}" Grid.Column="1">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>In Progress</x:String>
+                                <x:String>Completed</x:String>
+                                <x:String>Dropped</x:String>
+                                <x:String>Plan to Take</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Grid>
+
+                <!-- Instructor Name Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Instructor Name:" VerticalOptions="Center" Grid.Column="0" />
+                    <Entry Text="{Binding Course.InstructorName}" Placeholder="Enter Instructor Name" Grid.Column="1" />
+                </Grid>
+
+                <!-- Instructor Phone Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Instructor Phone:" VerticalOptions="Center" Grid.Column="0" />
+                    <Entry Text="{Binding Course.InstructorPhone}" Placeholder="Enter Instructor Phone" Grid.Column="1" />
+                </Grid>
+
+                <!-- Instructor Email Grid -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Instructor Email:" VerticalOptions="Center" Grid.Column="0" />
+                    <Entry Text="{Binding Course.InstructorEmail}" Placeholder="Enter Instructor Email" Grid.Column="1" />
+                </Grid>
+
+                <Button Text="Add Course" Command="{Binding AddCourseCommand}" Margin="0,20,0,0" />
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
+

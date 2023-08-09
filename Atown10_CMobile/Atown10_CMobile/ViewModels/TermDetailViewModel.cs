@@ -73,8 +73,7 @@ namespace Atown10_CMobile.ViewModels
 
         private async void OnAddCourse(object obj)
         {
-            // Navigate to Add Course Page
-            // await Shell.Current.GoToAsync(nameof(NewCoursePage));
+           await Shell.Current.Navigation.PushAsync(new AddCoursePage(TermId));
         }
 
     }

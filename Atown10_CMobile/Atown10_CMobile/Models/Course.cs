@@ -17,5 +17,7 @@ namespace Atown10_CMobile.Models
         public string InstructorEmail { get; set; }
         public string Notes { get; set; }
         public int TermId { get; set; }
+        public bool SetNotificationStartDate { get; set; }
+        public bool SetNotificationEndDate { get; set; }
     }
 }
