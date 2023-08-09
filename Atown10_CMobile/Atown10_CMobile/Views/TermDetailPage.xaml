@@ -38,8 +38,10 @@
                 </StackLayout>
             </ScrollView>
 
-            <!-- Add Course Button at the bottom -->
-            <Button Text="Add Course" Command="{Binding AddCourseCommand}" Margin="0,10,0,10" Grid.Row="1" />
+            <StackLayout Orientation="Vertical" Grid.Row="1" Spacing="10">
+                <Button Text="Add Course" Command="{Binding AddCourseCommand}" Margin="0,10,0,0" HorizontalOptions="FillAndExpand" />
+                <Button Text="Edit Term" Command="{Binding EditTermCommand}" Margin="0,0,0,0" HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

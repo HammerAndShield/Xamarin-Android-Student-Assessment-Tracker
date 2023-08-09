@@ -81,7 +81,7 @@ namespace Atown10_CMobile.ViewModels
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Error", "Please ensure all fields are filled and the end date is after the start date.", "OK");
+                await App.Current.MainPage.DisplayAlert("Error", "Please ensure all fields are completed and the end date is after the start date.", "OK");
             }
         }
 

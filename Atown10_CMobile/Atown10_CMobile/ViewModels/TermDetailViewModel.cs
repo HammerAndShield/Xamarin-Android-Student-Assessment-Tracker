@@ -24,6 +24,7 @@ namespace Atown10_CMobile.ViewModels
         public ObservableCollection<Course> Courses { get; }
         public Command LoadTermCommand { get; }
         public Command AddCourseCommand { get; }
+        public Command EditTermCommand { get; }
         public Command<Course> CourseTapped { get; }
 
         public TermDetailViewModel()
@@ -34,8 +35,7 @@ namespace Atown10_CMobile.ViewModels
             CourseTapped = new Command<Course>(OnCourseSelected);
 
             AddCourseCommand = new Command(OnAddCourse);
-
-
+            EditTermCommand = new Command(OnEditTerm);
         }
 
         async Task ExecuteLoadTermCommand()
@@ -74,6 +74,11 @@ namespace Atown10_CMobile.ViewModels
         private async void OnAddCourse(object obj)
         {
            await Shell.Current.Navigation.PushAsync(new AddCoursePage(TermId));
+        }
+
+        private async void OnEditTerm()
+        {
+            await Shell.Current.Navigation.PushAsync(new TermEditPage(TermId));
         }
 
     }

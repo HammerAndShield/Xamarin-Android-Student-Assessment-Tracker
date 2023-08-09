@@ -3,16 +3,14 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:Atown10_CMobile.Views"
        Title="Atown10_CMobile"
-       x:Class="Atown10_CMobile.AppShell">
+       x:Class="Atown10_CMobile.AppShell"
+       FlyoutBehavior="Disabled">
 
     <Shell.Resources>
         <!-- Your resources here -->
     </Shell.Resources>
 
-    <!-- FlyoutItem for Terms -->
-    <FlyoutItem Title="Terms" Icon="">
-        <ShellContent Route="TermPage" ContentTemplate="{DataTemplate local:TermPage}" />
-    </FlyoutItem>
+    <ShellContent Route="TermPage" ContentTemplate="{DataTemplate local:TermPage}" />
 
 
 </Shell>
