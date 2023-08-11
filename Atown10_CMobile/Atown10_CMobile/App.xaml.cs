@@ -2,7 +2,9 @@
 using Atown10_CMobile.Views;
 using System;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 using Xamarin.Forms.Xaml;
+using System.Threading.Tasks;
 
 namespace Atown10_CMobile
 {

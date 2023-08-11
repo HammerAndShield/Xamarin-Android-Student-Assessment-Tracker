@@ -48,6 +48,25 @@ namespace Atown10_CMobile.ViewModels
             if (IsValidCourse())
             {
                 await App.Database.SaveCourseAsync(Course);
+
+                if (SetNotificationStartDate)
+                {
+                    SetNotification("start", Course.StartDate, Course.Id);
+                }
+                else
+                {
+                    DeleteNotification("start", Course.Id);
+                }
+
+                if (SetNotificationEndDate)
+                {
+                    SetNotification("end", Course.EndDate, Course.Id + 1000);
+                }
+                else
+                {
+                    DeleteNotification("end", Course.Id + 1000);
+                }
+
                 await Shell.Current.GoToAsync("..");
             }
             else
@@ -58,11 +77,11 @@ namespace Atown10_CMobile.ViewModels
 
         private bool IsValidCourse()
         {
-            return Course.Name != null &&
-                   Course.Status != null &&
-                   Course.InstructorName != null &&
-                   Course.InstructorPhone != null &&
-                   Course.InstructorEmail != null &&
+            return !string.IsNullOrWhiteSpace(Course.Name) &&
+                   !string.IsNullOrWhiteSpace(Course.Status) &&
+                   !string.IsNullOrWhiteSpace(Course.InstructorName) &&
+                   !string.IsNullOrWhiteSpace(Course.InstructorPhone) &&
+                   !string.IsNullOrWhiteSpace(Course.InstructorEmail) &&
                    Course.EndDate > Course.StartDate;
         }
 
@@ -70,16 +89,22 @@ namespace Atown10_CMobile.ViewModels
         {
             var oneWeekBefore = eventDate.AddDays(-7);
             var oneDayBefore = eventDate.AddDays(-1);
+
             string message = "";
+            string notify = "";
 
             if (eventType == "start")
             {
                 message = $"Your course {Course.Name} starts";
+                notify = $"Start date notifications enabled for {Course.Name}";
             }
             else if (eventType == "end")
             {
                 message = $"Your course {Course.Name} ends";
+                notify = $"End date notifications enabled for {Course.Name}";
             }
+
+            CrossLocalNotifications.Current.Show("Notification Enabled", $"{notify}", id - 100);
 
             if (oneWeekBefore > DateTime.Now)
             {

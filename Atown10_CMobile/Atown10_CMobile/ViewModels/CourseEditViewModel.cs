@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Xamarin.Essentials;
 using System.Diagnostics;
 using Plugin.LocalNotifications;
 
@@ -87,11 +88,11 @@ namespace Atown10_CMobile.ViewModels
 
         private bool IsValidCourse()
         {
-            return Course.Name != null &&
-                   Course.Status != null &&
-                   Course.InstructorName != null &&
-                   Course.InstructorPhone != null &&
-                   Course.InstructorEmail != null &&
+            return !string.IsNullOrWhiteSpace(Course.Name) &&
+                   !string.IsNullOrWhiteSpace(Course.Status) &&
+                   !string.IsNullOrWhiteSpace(Course.InstructorName) &&
+                   !string.IsNullOrWhiteSpace(Course.InstructorPhone) &&
+                   !string.IsNullOrWhiteSpace(Course.InstructorEmail) &&
                    Course.EndDate > Course.StartDate;
         }
 
@@ -111,16 +112,22 @@ namespace Atown10_CMobile.ViewModels
         {
             var oneWeekBefore = eventDate.AddDays(-7);
             var oneDayBefore = eventDate.AddDays(-1);
+
             string message = "";
+            string notify = "";
 
             if (eventType == "start")
             {
                 message = $"Your course {Course.Name} starts";
+                notify = $"Start date notifications enabled for {Course.Name}";
             }
             else if (eventType == "end")
             {
                 message = $"Your course {Course.Name} ends";
+                notify = $"End date notifications enabled for {Course.Name}";
             }
+
+            CrossLocalNotifications.Current.Show("Notification Enabled", $"{notify}", id - 100);
 
             if (oneWeekBefore > DateTime.Now)
             {
