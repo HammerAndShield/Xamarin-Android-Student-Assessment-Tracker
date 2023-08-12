@@ -27,7 +27,7 @@
                     <Label Text="Start Date:" VerticalOptions="Center" Grid.Column="0" />
                     <DatePicker Date="{Binding Course.StartDate}" Grid.Column="1" />
                 </Grid>
-                
+
                 <!-- Start Date Notification Grid -->
 
                 <Grid>
@@ -121,4 +121,3 @@
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
-

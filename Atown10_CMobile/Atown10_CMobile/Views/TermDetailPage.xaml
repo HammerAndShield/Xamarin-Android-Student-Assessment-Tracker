@@ -18,6 +18,17 @@
                     <Label Text="{Binding Term.EndDate, StringFormat='End Date: {0:MM/dd/yyyy}'}" FontSize="16" Margin="0,0,0,10" />
 
                     <Label Text="Courses" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <!-- Search button -->
+                        <Button Text="Search" Command="{Binding SearchCourseCommand}" Grid.Column="0" />
+                        <!-- Entry textbox -->
+                        <Entry x:Name="SearchEntry" Placeholder="Search for a course..." Text="{Binding SearchQuery}" Grid.Column="1" HorizontalOptions="FillAndExpand" />
+                    </Grid>
+                    
                     <CollectionView ItemsSource="{Binding Courses}" SelectionMode="Single" SelectionChanged="OnSelectionChanged">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>

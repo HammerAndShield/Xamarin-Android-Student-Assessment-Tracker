@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Diagnostics;
-using Plugin.LocalNotifications;
+using Plugin.LocalNotification;
 
 
 namespace Atown10_CMobile.ViewModels
@@ -167,21 +167,38 @@ namespace Atown10_CMobile.ViewModels
             var oneWeekBefore = dueDate.AddDays(-7);
             var oneDayBefore = dueDate.AddDays(-1);
 
-            if (oneWeekBefore > DateTime.Now) 
+            string title = "Assessment Reminder";
+            string message = $"Your {assessmentName} assessment is due";
+
+            if (oneWeekBefore > DateTime.Now)
             {
-                CrossLocalNotifications.Current.Show("Assessment Reminder", $"Your {assessmentName} assessment is due in a week!", id, oneWeekBefore);
+                var notificationWeekBefore = new NotificationRequest
+                {
+                    NotificationId = id,
+                    Title = title,
+                    Description = $"{message} in a week!"
+                };
+                notificationWeekBefore.Schedule.NotifyTime = oneWeekBefore;
+                LocalNotificationCenter.Current.Show(notificationWeekBefore);
             }
 
-            if (oneDayBefore > DateTime.Now) 
+            if (oneDayBefore > DateTime.Now)
             {
-                CrossLocalNotifications.Current.Show("Assessment Reminder", $"Your {assessmentName} assessment is due tomorrow!", id + 100, oneDayBefore); 
+                var notificationDayBefore = new NotificationRequest
+                {
+                    NotificationId = id + 100,
+                    Title = title,
+                    Description = $"{message} tomorrow!"
+                };
+                notificationDayBefore.Schedule.NotifyTime = oneDayBefore;
+                LocalNotificationCenter.Current.Show(notificationDayBefore);
             }
         }
 
         private void DeleteNotification(string assessmentName, int id)
         {
-            CrossLocalNotifications.Current.Cancel(id);
-            CrossLocalNotifications.Current.Cancel(id + 100);
+            LocalNotificationCenter.Current.Cancel(id);
+            LocalNotificationCenter.Current.Cancel(id + 100);
         }
 
         private async void OnDeletePerformanceAssessment()

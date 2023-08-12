@@ -7,9 +7,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Xamarin.Essentials;
 using System.Diagnostics;
-using Plugin.LocalNotifications;
+using Plugin.LocalNotification;
 
 namespace Atown10_CMobile.ViewModels
 {
@@ -113,37 +112,41 @@ namespace Atown10_CMobile.ViewModels
             var oneWeekBefore = eventDate.AddDays(-7);
             var oneDayBefore = eventDate.AddDays(-1);
 
+            string title = "Course Reminder";
             string message = "";
-            string notify = "";
 
             if (eventType == "start")
             {
                 message = $"Your course {Course.Name} starts";
-                notify = $"Start date notifications enabled for {Course.Name}";
             }
             else if (eventType == "end")
             {
                 message = $"Your course {Course.Name} ends";
-                notify = $"End date notifications enabled for {Course.Name}";
             }
 
-            CrossLocalNotifications.Current.Show("Notification Enabled", $"{notify}", id - 100);
+            var notification = new NotificationRequest
+            {
+                NotificationId = id,
+                Title = title,
+                Description = message
+            };
 
             if (oneWeekBefore > DateTime.Now)
             {
-                CrossLocalNotifications.Current.Show("Course Reminder", $"{message} in a week!", id, oneWeekBefore);
+                notification.Schedule.NotifyTime = oneWeekBefore;
+                LocalNotificationCenter.Current.Show(notification);
             }
 
             if (oneDayBefore > DateTime.Now)
             {
-                CrossLocalNotifications.Current.Show("Course Reminder", $"{message} tomorrow!", id + 100, oneDayBefore);
+                notification.Schedule.NotifyTime = oneDayBefore;
+                LocalNotificationCenter.Current.Show(notification);
             }
         }
 
         private void DeleteNotification(string eventType, int id)
         {
-            CrossLocalNotifications.Current.Cancel(id);
-            CrossLocalNotifications.Current.Cancel(id + 100);
+            LocalNotificationCenter.Current.Cancel(id);
         }
     }
 }

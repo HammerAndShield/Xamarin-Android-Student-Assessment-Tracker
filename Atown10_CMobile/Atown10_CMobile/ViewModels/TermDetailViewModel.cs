@@ -26,6 +26,14 @@ namespace Atown10_CMobile.ViewModels
         public Command AddCourseCommand { get; }
         public Command EditTermCommand { get; }
         public Command<Course> CourseTapped { get; }
+        private List<Course> _allCourses = new List<Course>();
+        private string _searchQuery;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set => SetProperty(ref _searchQuery, value);
+        }
+        public Command SearchCourseCommand { get; }
 
         public TermDetailViewModel()
         {
@@ -36,6 +44,7 @@ namespace Atown10_CMobile.ViewModels
 
             AddCourseCommand = new Command(OnAddCourse);
             EditTermCommand = new Command(OnEditTerm);
+            SearchCourseCommand = new Command(async () => await ExecuteSearchCourseCommand());
         }
 
         async Task ExecuteLoadTermCommand()
@@ -47,8 +56,39 @@ namespace Atown10_CMobile.ViewModels
                 Term = await App.Database.GetTermAsync(TermId);
                 var courses = await App.Database.GetCoursesForTermAsync(TermId);
 
+                _allCourses = courses.ToList(); 
+
                 Courses.Clear();
                 foreach (var course in courses)
+                {
+                    Courses.Add(course);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        async Task ExecuteSearchCourseCommand()
+        {
+            if (string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                await ExecuteLoadTermCommand();
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                Courses.Clear();
+                var filteredCourses = _allCourses.Where(c => c.Name.IndexOf(SearchQuery, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                foreach (var course in filteredCourses)
                 {
                     Courses.Add(course);
                 }

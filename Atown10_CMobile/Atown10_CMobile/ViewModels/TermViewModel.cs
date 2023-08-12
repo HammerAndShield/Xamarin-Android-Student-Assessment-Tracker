@@ -9,6 +9,7 @@ using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Atown10_CMobile.ViewModels
 {
@@ -19,6 +20,14 @@ namespace Atown10_CMobile.ViewModels
         public Command LoadTermsCommand { get; }
         public Command AddTermCommand { get; }
         public Command<Term> TermTapped { get; }
+        public Command SearchTermCommand { get; }
+        private List<Term> _allTerms = new List<Term>();
+        private string _searchQuery;
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set => SetProperty(ref _searchQuery, value);
+        }
 
         public TermViewModel()
         {
@@ -29,6 +38,7 @@ namespace Atown10_CMobile.ViewModels
             TermTapped = new Command<Term>(OnTermSelected);
 
             AddTermCommand = new Command(OnAddTerm);
+            SearchTermCommand = new Command(async () => await ExecuteSearchTermCommand());
 
         }
 
@@ -39,8 +49,37 @@ namespace Atown10_CMobile.ViewModels
             try
             {
                 Terms.Clear();
-                var terms = await App.Database.GetTermsAsync();
-                foreach (var term in terms)
+                _allTerms = await App.Database.GetTermsAsync();
+                foreach (var term in _allTerms)
+                {
+                    Terms.Add(term);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        async Task ExecuteSearchTermCommand()
+        {
+            if (string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                await ExecuteLoadTermsCommand();
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                Terms.Clear();
+                var filteredTerms = _allTerms.Where(t => t.Title.IndexOf(SearchQuery, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+                foreach (var term in filteredTerms)
                 {
                     Terms.Add(term);
                 }
